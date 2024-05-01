@@ -1,5 +1,4 @@
-WIP: Employee Reimbursement System (ERS)
-# Employee Reimbursement System (ERS)
+# WIP: Employee Reimbursement System (ERS)
 
 Welcome to the Employee Reimbursement System (ERS) repository! This project is a Java Full Stack application designed to streamline the process of submitting and managing reimbursement requests for employees.
 
