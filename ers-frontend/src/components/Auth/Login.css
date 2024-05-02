@@ -1,0 +1,60 @@
+.login {
+    width: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 5px;
+    border: 2px solid #ccc; /* Added solid border style */
+    padding: 20px;
+}
+
+.text-container {
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.input-container {
+    height: 40px; /* Adjusted for better input visibility */
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #F4F7F5;
+    width: 300px; /* Adjusted from percentage to fixed width for consistent sizing */
+    border-radius: 25px;
+    padding: 8px 15px; /* Adjusted padding for better alignment */
+}
+
+.login-button {  
+    background: #00a1e4;
+    width: 150px; /* Adjusted for a more suitable button size */
+    margin-left: auto;
+    margin-right: auto;
+    border-color: #02040F;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    font-weight: 400;
+    padding: 10px 0; /* Adjusted padding for better button height */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block; /* Ensure buttons are on new lines */
+}
+
+.login-button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 50px 15px #cdd7dd;
+}
+
+.input-container:hover {
+    box-shadow: 0 0 50px 15px #cdd7dd;
+}
+
+.disclaimer {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20%;
+}
+
+input {
+    border-style: hidden;
+    width: 100%; /* Adjust to fill container width */
+}
