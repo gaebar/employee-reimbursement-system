@@ -3,39 +3,52 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;  /* Use the full height of the viewport */
-    background-color: rgba(255, 255, 255, 0.8); /* Optional: adding a slight transparency */
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 form {
-    width: 90%;   /* Adjust the width as necessary */
-    max-width: 400px; /* Maximum width of the form */
+    width: 90%;
+    max-width: 400px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 5px;
-    background-color: #ffffff; /* Background color */
-    margin: auto; /* This will help to center the form if not using flexbox */
+    background-color: #ffffff;
+    margin: auto;
+    overflow: hidden; /* Aggiunge questo per prevenire overflow */
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #ffffff; /* Assicurati che lo sfondo dell'input container sia bianco */
+}
+
+.icon {
+    margin-right: 10px;
+    color: #666;
 }
 
 input, textarea {
-    width: 100%; /* Full width of the form */
+    flex-grow: 1;
     padding: 8px;
-    margin: 10px 0; /* Spacing between inputs */
-    box-sizing: border-box; /* Includes padding and border in the element's width and height */
-    border: 1px solid #ccc; /* Border style */
-    border-radius: 4px; /* Rounded borders */
+    margin: 0 10px 0 0; /* Regola il margine destro per prevenire overflow */
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
+    background-color: #4CAF50;
+    color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049; /* Slightly darker green */
+    background-color: #45a049;
 }
