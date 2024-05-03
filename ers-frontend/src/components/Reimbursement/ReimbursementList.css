@@ -1,0 +1,28 @@
+.reimbursement-list {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.reimbursement-list h2 {
+    text-align: center;
+    color: #333;
+}
+
+.reimbursement-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.reimbursement-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.reimbursement-list li:last-child {
+    border-bottom: none;
+}
