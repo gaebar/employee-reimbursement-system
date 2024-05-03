@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import "./Auth.css";
 import { UserInterface } from "../../interfaces/UserInterface";
 import { useState } from "react";
 import axios from "axios";

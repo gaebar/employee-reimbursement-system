@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Login.css"; // Reusing CSS from the Login component
+import "./Auth.css"; // Reusing CSS from the Login component
 
 interface UserInterface {
     username: string;
