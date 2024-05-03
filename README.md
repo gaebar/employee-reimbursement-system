@@ -2,6 +2,8 @@
 
 Welcome to the Employee Reimbursement System (ERS) repository! This project is a Java Full Stack application designed to streamline the process of submitting and managing reimbursement requests for employees.
 
+![Main Page](images/main-page.png)
+
 ## Overview
 
 The ERS application consists of two main components:
