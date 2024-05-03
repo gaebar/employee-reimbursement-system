@@ -3,6 +3,7 @@ import "./Login.css";
 import { UserInterface } from "../../interfaces/UserInterface";
 import { useState } from "react";
 import axios from "axios";
+import { FaUser, FaLock } from "react-icons/fa";  // Import icons from react-icons library
 
 interface LoginProps {
     setToken: (token: string) => void;
@@ -22,7 +23,7 @@ export const Login: React.FC<LoginProps> = ({ setToken }) => {
             const response = await axios.post("http://localhost:8080/api/login", user, { withCredentials: true });
             alert(`Welcome, ${response.data.username}!`);
             setToken(response.data.accessToken);
-            navigate("/dashboard");  // Navigate to the appropriate dashboard based on role
+            navigate("/dashboard");
         } catch (error) {
             alert("Login Failed!");
         }
@@ -35,15 +36,17 @@ export const Login: React.FC<LoginProps> = ({ setToken }) => {
                 <h3>Sign in to manage your reimbursements!</h3>
 
                 <div className="input-container">
-                    <input type="text" placeholder="username" name="username" onChange={storeValues} />
+                    <FaUser className="icon" />  {/* Icon for username */}
+                    <input type="text" placeholder="Username" name="username" onChange={storeValues} />
                 </div>
 
                 <div className="input-container">
-                    <input type="password" placeholder="password" name="password" onChange={storeValues} />
+                    <FaLock className="icon" />  {/* Icon for password */}
+                    <input type="password" placeholder="Password" name="password" onChange={storeValues} />
                 </div>
 
                 <button className="login-button" onClick={login}>Login</button>
-                <button className="login-button" onClick={() => navigate("/register")}>Create Account</button>
+                <p className="register-link">Don't have an account? <span onClick={() => navigate("/register")}>Sign up</span></p>
             </div>
         </div>
     );
