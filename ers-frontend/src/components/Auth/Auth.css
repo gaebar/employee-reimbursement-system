@@ -22,7 +22,7 @@
     margin-bottom: 20px;
     background-color: #F4F7F5;
     border-radius: 15px;
-    padding: 8px 15px 0 0;
+    padding: 8px 15px;
     display: flex; /* Added to align icons with inputs */
     align-items: center; /* Vertical center alignment for content */
 }
@@ -39,7 +39,7 @@ input {
 
 input::placeholder {
     color: #aaa; /* Lighter color for placeholder text */
-    font-style: italic; /* Italicize placeholder text */
+    /* font-style: italic; Italicize placeholder text */
 }
 
 input:focus {
@@ -98,7 +98,6 @@ input[type="text"], input[type="password"] {
     color: #32a852; /* Match the login button color for design consistency */
     font-weight: bold;
     cursor: pointer;
-    text-decoration: underline;
 }
 
 .register-link span:hover {

@@ -52,8 +52,11 @@ export const Register: React.FC = () => {
                 <FaLock className="icon" /> {/* Icon for confirm password */}
                 <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} />
             </div>
-            <button className="login-button" onClick={handleRegister}>Register</button>
-            <button className="login-button" onClick={() => navigate("/login")}>Back to Login</button>
+            <button className="login-button" onClick={handleRegister}>Sign Up</button>
+            {/* <button className="login-button" onClick={() => navigate("/login")}>Back to Login</button> */}
+            <p className="register-link">
+                    Have an account? <span onClick={() => navigate("/login")}>Log in</span>
+                </p>
         </div>
     );
 };
