@@ -1,1 +1,22 @@
-/* ManagerDashboard.css */
+/* src/components/Dashboard/ManagerDashboard.css
+
+.manager-dashboard {
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.manager-dashboard ul {
+    list-style: none;
+    padding: 0;
+}
+
+.manager-dashboard li {
+    margin-bottom: 10px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.manager-dashboard button {
+    margin-left: 10px;
+} */

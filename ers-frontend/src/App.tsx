@@ -6,7 +6,7 @@ import { Login } from './components/Auth/Login';
 import { Register } from './components/Auth/Register';
 import { ReimbursementForm } from './components/Reimbursement/ReimbursementForm';
 import EmployeeDashboard from './components/Dashboard/EmployeeDashboard';
-import ManagerDashboard from './components/Dashboard/ManagerDashboard';
+// import ManagerDashboard from './components/Dashboard/ManagerDashboard';
 import ReimbursementListLoader from './components/Reimbursement/ReimbursementListLoader';
 
 import './App.css';
@@ -39,7 +39,7 @@ const App: React.FC = () => {
           <Route path="/login" element={<Login setToken={setToken} setUserRole={setUserRole} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
-          <Route path="/manager-dashboard" element={<ManagerDashboard />} />
+          {/* <Route path="/manager-dashboard" element={<ManagerDashboard />} /> */}
           <Route path="/reimbursement-form" element={<ReimbursementForm />} />
           <Route path="/reimbursement-list" element={<ReimbursementListLoader />} /> {/* This line handles the reimbursement list */}
           <Route path="/" element={renderMainRoute()} />
