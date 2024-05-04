@@ -3,13 +3,14 @@ import "./Auth.css";
 import { UserInterface } from "../../interfaces/UserInterface";
 import { useState } from "react";
 import axios from "axios";
-import { FaUser, FaLock } from "react-icons/fa";  // Import icons from react-icons library
+import { FaUser, FaLock } from "react-icons/fa"; 
 
 interface LoginProps {
     setToken: (token: string) => void;
+    setUserRole: (role: string) => void; // Aggiungi la props setUserRole all'interfaccia LoginProps
 }
 
-export const Login: React.FC<LoginProps> = ({ setToken }) => {
+export const Login: React.FC<LoginProps> = ({ setToken, setUserRole }) => {
     const [user, setUser] = useState<UserInterface>({ username: "", password: "" });
     const navigate = useNavigate();
 
@@ -23,6 +24,7 @@ export const Login: React.FC<LoginProps> = ({ setToken }) => {
             const response = await axios.post("http://localhost:8080/api/login", user, { withCredentials: true });
             alert(`Welcome, ${response.data.username}!`);
             setToken(response.data.accessToken);
+            setUserRole(response.data.role); // Imposta il ruolo dell'utente
             navigate("/dashboard");
         } catch (error) {
             alert("Login Failed!");

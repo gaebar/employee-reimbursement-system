@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FaUser, FaEnvelope, FaLock } from "react-icons/fa"; // Importa le icone da react-icons
 import "./Auth.css"; // Reusing CSS from the Login component
 
 interface UserInterface {
@@ -10,7 +11,7 @@ interface UserInterface {
 }
 
 export const Register: React.FC = () => {
-    const [user, setUser] = useState<UserInterface>({ username: "", password: "" });
+    const [user, setUser] = useState<UserInterface>({ username: "", password: "", email: "" });
     const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,15 +37,19 @@ export const Register: React.FC = () => {
                 <h3>Join us to manage your reimbursements!</h3>
             </div>
             <div className="input-container">
+                <FaUser className="icon" /> {/* Icon for username */}
                 <input type="text" name="username" placeholder="Username" onChange={handleChange} />
             </div>
             <div className="input-container">
+                <FaEnvelope className="icon" /> {/* Icon for email */}
                 <input type="email" name="email" placeholder="Email (optional)" onChange={handleChange} />
             </div>
             <div className="input-container">
+                <FaLock className="icon" /> {/* Icon for password */}
                 <input type="password" name="password" placeholder="Password" onChange={handleChange} />
             </div>
             <div className="input-container">
+                <FaLock className="icon" /> {/* Icon for confirm password */}
                 <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} />
             </div>
             <button className="login-button" onClick={handleRegister}>Register</button>
