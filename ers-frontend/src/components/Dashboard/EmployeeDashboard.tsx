@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+// EmployeeDashboard.tsx
+
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ReimbursementInterface } from '../../interfaces/ReimbursementInterface';
-import { ReimbursementForm } from '../Reimbursement/ReimbursementForm'; // Assicurati che il percorso sia corretto
+import { ReimbursementForm } from '../Reimbursement/ReimbursementForm'; 
+import { ReimbursementList } from '../Reimbursement/ReimbursementList';
 import './EmployeeDashboard.css';
 
 const EmployeeDashboard = () => {
@@ -31,14 +34,7 @@ const EmployeeDashboard = () => {
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
-                <ul>
-                    {reimbursements.map((item, index) => (
-                        <li key={index}>
-                            {item.description} - ${item.amount} ({item.status})
-                            {item.status === 'Pending' && <button>Edit</button>}
-                        </li>
-                    ))}
-                </ul>
+                <ReimbursementList reimbursements={reimbursements} />
             )}
         </div>
     );

@@ -1,4 +1,5 @@
-// ReimbursementForm.tsx
+// ReimbursementForm component is a form that allows users to submit a reimbursement request. 
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FaMoneyBillAlt, FaAlignLeft } from 'react-icons/fa'; // Importa le icone necessarie
@@ -21,13 +22,14 @@ export const ReimbursementForm = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/reimbursements', formData);
+            await axios.post('http://localhost:8080/api/reimbursements', formData);
             alert('Reimbursement submitted successfully!');
         } catch (error) {
             alert('Failed to submit reimbursement');
             console.error(error);
         }
     };
+    
 
     return (
         <div className="form-container">
@@ -65,4 +67,3 @@ export const ReimbursementForm = () => {
         </div>
     );
 };
-

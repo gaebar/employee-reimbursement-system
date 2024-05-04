@@ -1,3 +1,5 @@
+// User interface to define the shape of the user object
+
 export interface UserInterface {
     userId?: number;  // Optional because it might not be present when creating a new user
     username: string;

@@ -1,3 +1,5 @@
+// App.test.tsx is a test file for the App component. It is used to test the App component.
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
