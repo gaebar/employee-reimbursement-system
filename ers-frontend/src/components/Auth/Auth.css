@@ -96,6 +96,7 @@ input[type="text"], input[type="password"] {
 
 .register-link span {
     color: #32a852; /* Match the login button color for design consistency */
+    font-weight: bold;
     cursor: pointer;
     text-decoration: underline;
 }
@@ -103,3 +104,4 @@ input[type="text"], input[type="password"] {
 .register-link span:hover {
     color: #278440; /* Darker green on hover for better user feedback */
 }
+

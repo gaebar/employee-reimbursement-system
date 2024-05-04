@@ -1,3 +1,4 @@
+// ReimbursementForm.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FaMoneyBillAlt, FaAlignLeft } from 'react-icons/fa'; // Importa le icone necessarie
@@ -31,8 +32,9 @@ export const ReimbursementForm = () => {
     return (
         <div className="form-container">
             <div className="form-content">
-                <h2>Submit Your Reimbursement Request</h2>
-                <p>Please fill out the form below to submit a reimbursement request.<br/>Make sure to include all necessary details so your request can be processed efficiently.</p>
+                <h1>Submit Your Reimbursement Request</h1>
+                <p>Fill out the form below.</p>
+                <p>Ensure all details are complete for prompt processing.</p>
                 <form onSubmit={handleSubmit}>
                     <div className="input-container">
                         <FaMoneyBillAlt className="icon" />
@@ -63,3 +65,4 @@ export const ReimbursementForm = () => {
         </div>
     );
 };
+
