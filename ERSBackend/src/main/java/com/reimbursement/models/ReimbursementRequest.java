@@ -27,7 +27,7 @@ public class ReimbursementRequest {
     private LocalDate dateSubmitted;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
     private User user;
 
     public ReimbursementRequest() {

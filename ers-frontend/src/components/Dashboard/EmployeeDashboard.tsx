@@ -14,7 +14,8 @@ const EmployeeDashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/reimbursements/user/1'); // Adjust this endpoint as necessary
+                const userId = 1; // Replace with actual dynamic user ID as necessary
+                const response = await axios.get(`http://localhost:8080/api/reimbursements/user/${userId}`);
                 setReimbursements(response.data);
                 setIsLoading(false);
             } catch (error) {
