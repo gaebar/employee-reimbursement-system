@@ -1,60 +1,70 @@
-// // src/components/Dashboard/ManagerDashboard.js
-export {}
+// src/components/Dashboard/ManagerDashboard.js
 
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import './ManagerDashboard.css';  // Assicurati di avere un file CSS per gli stili
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './ManagerDashboard.css';
 
-// const ManagerDashboard = () => {
-//     const [requests, setRequests] = useState([]);
+// Define an interface for reimbursement requests
+interface ReimbursementRequest {
+    reimbursementId: number;
+    description: string;
+    amount: number;
+    status: string;
+}
 
-//     useEffect(() => {
-//         const fetchRequests = async () => {
-//             try {
-//                 const response = await axios.get('http://localhost:8080/api/reimbursements');  // Aggiusta l'endpoint come necessario
-//                 setRequests(response.data);
-//             } catch (error) {
-//                 console.error('Failed to fetch reimbursements', error);
-//             }
-//         };
+const ManagerDashboard = () => {
+    const [requests, setRequests] = useState<ReimbursementRequest[]>([]);
 
-//         fetchRequests();
-//     }, []);
+    useEffect(() => {
+        // Fetch all reimbursement requests on component mount
+        const fetchRequests = async () => {
+            try {
+                const response = await axios.get<ReimbursementRequest[]>('http://localhost:8080/api/reimbursements');  // Adjust the endpoint as necessary
+                setRequests(response.data);
+            } catch (error) {
+                console.error('Failed to fetch reimbursements', error);
+            }
+        };
 
-//     const handleApprove = async (id) => {
-//         try {
-//             await axios.post(`http://localhost:8080/api/reimbursements/approve/${id}`);
-//             // Aggiorna la lista locale dei rimborsi o rifai la fetch dei dati
-//             setRequests(requests.map(req => req.id === id ? { ...req, status: 'Approved' } : req));
-//         } catch (error) {
-//             console.error('Failed to approve reimbursement', error);
-//         }
-//     };
+        fetchRequests();
+    }, []);
 
-//     const handleDeny = async (id) => {
-//         try {
-//             await axios.post(`http://localhost:8080/api/reimbursements/deny/${id}`);
-//             // Aggiorna la lista locale dei rimborsi o rifai la fetch dei dati
-//             setRequests(requests.map(req => req.id === id ? { ...req, status: 'Denied' } : req));
-//         } catch (error) {
-//             console.error('Failed to deny reimbursement', error);
-//         }
-//     };
+    // Handles the approval of a reimbursement request
+    const handleApprove = async (reimbursementId: number) => {
+        try {
+            await axios.post(`http://localhost:8080/api/reimbursements/approve/${reimbursementId}`);
+            // Update local list of requests or re-fetch the data
+            setRequests(requests.map(req => req.reimbursementId === reimbursementId ? { ...req, status: 'Approved' } : req));
+        } catch (error) {
+            console.error('Failed to approve reimbursement', error);
+        }
+    };
 
-//     return (
-//         <div className="manager-dashboard">
-//             <h1>Dashboard del Manager</h1>
-//             <ul>
-//                 {requests.map(request => (
-//                     <li key={request.id}>
-//                         {request.description} - ${request.amount} - {request.status}
-//                         <button onClick={() => handleApprove(request.id)}>Approve</button>
-//                         <button onClick={() => handleDeny(request.id)}>Deny</button>
-//                     </li>
-//                 ))}
-//             </ul>
-//         </div>
-//     );
-// }
+    // Handles the denial of a reimbursement request
+    const handleDeny = async (reimbursementId: number) => {
+        try {
+            await axios.post(`http://localhost:8080/api/reimbursements/deny/${reimbursementId}`);
+            // Update local list of requests or re-fetch the data
+            setRequests(requests.map(req => req.reimbursementId === reimbursementId ? { ...req, status: 'Denied' } : req));
+        } catch (error) {
+            console.error('Failed to deny reimbursement', error);
+        }
+    };
 
-// export default ManagerDashboard;
+    return (
+        <div className="manager-dashboard">
+            <h1>Manager Dashboard</h1>
+            <ul>
+                {requests.map(request => (
+                    <li key={request.reimbursementId}>
+                        {request.description} - ${request.amount} - {request.status}
+                        <button onClick={() => handleApprove(request.reimbursementId)}>Approve</button>
+                        <button onClick={() => handleDeny(request.reimbursementId)}>Deny</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+export default ManagerDashboard;

@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Login } from './components/Auth/Login';
 import { Register } from './components/Auth/Register';
 import EmployeeDashboard from './components/Dashboard/EmployeeDashboard';
-// import ManagerDashboard from './components/Dashboard/ManagerDashboard'; // Uncomment if ManagerDashboard is implemented
+import ManagerDashboard from './components/Dashboard/ManagerDashboard'; // Ensure this is uncommented only if the component is ready
 import { UserProvider } from './components/UserContext'; // Import UserProvider
 import './App.css';
 
@@ -16,10 +16,10 @@ const App: React.FC = () => {
   const isAuthenticated = !!token;
 
   const renderMainRoute = () => {
-    if (isAuthenticated) {
-      return role === 'manager' ? <Navigate to="/manager-dashboard" /> : <Navigate to="/employee-dashboard" />;
+    if (!isAuthenticated) {
+      return <Navigate to="/login" />;
     }
-    return <Navigate to="/login" />;
+    return role === 'manager' ? <Navigate to="/manager-dashboard" /> : <Navigate to="/employee-dashboard" />;
   };
 
   return (
@@ -30,7 +30,7 @@ const App: React.FC = () => {
             <Route path="/login" element={<Login setToken={setToken} setUserRole={setRole} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
-            {/* <Route path="/manager-dashboard" element={<ManagerDashboard />} /> */}
+            <Route path="/manager-dashboard" element={<ManagerDashboard />} /> {/* Uncomment this if ready */}
             <Route path="/" element={renderMainRoute()} />
           </Routes>
         </Router>
