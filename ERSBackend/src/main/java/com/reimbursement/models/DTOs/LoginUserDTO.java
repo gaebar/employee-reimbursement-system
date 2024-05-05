@@ -1,7 +1,7 @@
 package com.reimbursement.models.DTOs;
 //What's a DTO? A Data Transfer Object!
 
-//We don't want to have to specify User Id or a List of Reimbursement for Login/Registration
+//We don't want to have to specify User ID or a List of Reimbursement for Login/Registration
 //DTOs let us store ONLY the relevant information for a given operation
 
 //Big Picture: This will let a user just submit username/password for login/registration

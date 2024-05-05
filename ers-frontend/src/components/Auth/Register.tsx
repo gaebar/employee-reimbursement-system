@@ -30,7 +30,7 @@ export const Register: React.FC = () => {
         }
         try {
             const { confirmPassword, ...userData } = user; // Exclude confirmPassword when sending to the server
-            const response = await axios.post("http://localhost:8080/users", userData);
+            await axios.post("http://localhost:8080/users", userData);
             alert("Registration successful! You can now log in.");
             navigate("/login");
         } catch (error) {
@@ -38,6 +38,7 @@ export const Register: React.FC = () => {
             alert("Registration failed. Please try again.");
         }
     };
+    
 
     return (
         <div className="login">

@@ -22,11 +22,14 @@ export const Login: React.FC<LoginProps> = ({ setToken, setUserRole }) => {
 
     const login = async () => {
         try {
-            const response = await axios.post("http://localhost:8080/api/login", user);
+            const response = await axios.post("http://localhost:8080/users/login", user); 
             setUser(response.data);
             alert(`Welcome, ${response.data.username}!`);
-            setToken(response.data.accessToken);
+            const token = response.data.accessToken; // Extract access token from response
+            setToken(token); // Save token to component state or state management system
             setUserRole(response.data.role);  // Assume role is part of the response
+            // Set Authorization header for future requests
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             navigate("/dashboard");
         } catch (error) {
             alert("Login Failed!");
