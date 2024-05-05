@@ -14,7 +14,7 @@ const EmployeeDashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/reimbursements/user/1'); // Cambia con il tuo endpoint appropriato
+                const response = await axios.get('http://localhost:8080/api/reimbursements/user/1'); // Adjust this endpoint as necessary
                 setReimbursements(response.data);
                 setIsLoading(false);
             } catch (error) {
@@ -31,11 +31,7 @@ const EmployeeDashboard = () => {
             <h1>Employee Dashboard</h1>
             <ReimbursementForm />
             <h2>Your Reimbursement Requests</h2>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : (
-                <ReimbursementList reimbursements={reimbursements} />
-            )}
+            {isLoading ? <p>Loading...</p> : <ReimbursementList reimbursements={reimbursements} />}
         </div>
     );
 };

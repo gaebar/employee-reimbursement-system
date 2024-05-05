@@ -1,8 +1,8 @@
-// ReimbursementForm component is a form that allows users to submit a reimbursement request. 
+// ReimbursementForm.tsx
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import { FaMoneyBillAlt, FaAlignLeft } from 'react-icons/fa'; // Importa le icone necessarie
+import { FaMoneyBillAlt, FaAlignLeft } from 'react-icons/fa';
 import './ReimbursementForm.css';
 
 export const ReimbursementForm = () => {
@@ -24,28 +24,27 @@ export const ReimbursementForm = () => {
         try {
             await axios.post('http://localhost:8080/api/reimbursements', formData);
             alert('Reimbursement submitted successfully!');
+            setFormData({ amount: '', description: '' }); // Reset form fields
         } catch (error) {
             alert('Failed to submit reimbursement');
             console.error(error);
         }
     };
-    
 
     return (
         <div className="form-container">
             <div className="form-content">
                 <h1>Submit Your Reimbursement Request</h1>
                 <p>Fill out the form below.</p>
-                <p>Ensure all details are complete for prompt processing.</p>
                 <form onSubmit={handleSubmit}>
                     <div className="input-container">
                         <FaMoneyBillAlt className="icon" />
                         <input
                             type="number"
                             name="amount"
+                            placeholder="Amount"
                             value={formData.amount}
                             onChange={handleChange}
-                            placeholder="Amount"
                             required
                             min="1"
                             step="1"
@@ -55,9 +54,9 @@ export const ReimbursementForm = () => {
                         <FaAlignLeft className="icon" />
                         <textarea
                             name="description"
+                            placeholder="Description"
                             value={formData.description}
                             onChange={handleChange}
-                            placeholder="Description"
                             required
                         />
                     </div>
