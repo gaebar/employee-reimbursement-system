@@ -1,4 +1,4 @@
-/* Auth.ccs */
+/* Auth.css */
 
 .login {
     width: stretch;
@@ -29,10 +29,10 @@
     align-items: center; /* Vertical center alignment for content */
 }
 
-input {
+input, select {
     border: 2px solid #ccc; /* Added subtle border */
     outline: none;
-    width: 100%;
+    width: calc(100% - 30px); /* Adjust width to prevent overflow */
     padding: 12px 10px; /* Increased padding for better text visibility */
     font-size: 1rem; /* Increased font size for better readability */
     border-radius: 5px; /* Rounded corners for a modern look */
@@ -41,17 +41,17 @@ input {
 
 input::placeholder {
     color: #aaa; /* Lighter color for placeholder text */
-    /* font-style: italic; Italicize placeholder text */
 }
 
-input:focus {
+input:focus, select:focus {
     border-color: #32a852; /* Green border on focus, matching the button color */
     box-shadow: 0 0 8px rgba(50, 168, 82, 0.2); /* Soft outer glow on focus */
 }
 
-input[type="text"], input[type="password"] {
-    flex-grow: 1; /* Allow input to fill space */
-    margin-left: 10px; /* Space between icon and input text */
+.icon {
+    font-size: 1.2rem;
+    color: #666;
+    margin-right: 10px; /* Ensure spacing between icon and input */
 }
 
 .login-button {
@@ -74,35 +74,19 @@ input[type="text"], input[type="password"] {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.label {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 5px; /* Space between label and input */
-}
-
-.icon {
-    font-size: 1.2rem;
-    color: #666;
-}
-
-.input-container:hover {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
 .register-link {
     text-align: center;
     margin-top: 20px;
-    font-size: 0.9rem; /* Matching the font size of labels */
-    color: #666; /* Subdued text color */
+    font-size: 0.9rem;
+    color: #666;
 }
 
 .register-link span {
-    color: #32a852; /* Match the login button color for design consistency */
+    color: #32a852;
     font-weight: bold;
     cursor: pointer;
 }
 
 .register-link span:hover {
-    color: #278440; /* Darker green on hover for better user feedback */
+    color: #278440;
 }
-

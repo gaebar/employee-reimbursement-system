@@ -38,19 +38,22 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginUserDTO loginUserDTO, HttpSession session){
+        System.out.println("Attempting to login with username: " + loginUserDTO.getUsername());
         Optional<User> optionalUser = userService.loginUser(loginUserDTO);
 
         if(optionalUser.isEmpty()){
+            System.out.println("Login failed: No user found with provided credentials");
             return ResponseEntity.status(401).body("Login Failed!");
         }
 
-        User user = optionalUser.get();
+        User u = optionalUser.get();
+        System.out.println("Login successful for user: " + u.getUsername());
 
-        session.setAttribute("userId", user.getUserId());
-        session.setAttribute("username", user.getUsername());
-        session.setAttribute("role", user.getRole());
+        session.setAttribute("userId", u.getUserId());
+        session.setAttribute("username", u.getUsername());
+        session.setAttribute("role", u.getRole());
 
-        return ResponseEntity.ok(new UserLoginResponseDTO(user.getUserId(), user.getUsername()));
+        return ResponseEntity.ok(new UserLoginResponseDTO(u.getUserId(), u.getUsername(), u.getRole()));
     }
 
 

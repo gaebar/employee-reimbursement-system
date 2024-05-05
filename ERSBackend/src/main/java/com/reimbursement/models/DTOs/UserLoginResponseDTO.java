@@ -4,10 +4,12 @@ public class UserLoginResponseDTO {
 
     private int userId;
     private String username;
+    private String role;
 
-    public UserLoginResponseDTO(int userId, String username) {
+    public UserLoginResponseDTO(int userId, String username, String role) {
         this.userId = userId;
         this.username = username;
+        this.role = role;
     }
 
     // Getter and Setter methods
@@ -27,11 +29,21 @@ public class UserLoginResponseDTO {
         this.username = username;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+
     @Override
     public String toString() {
         return "UserLoginResponseDTO{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }
