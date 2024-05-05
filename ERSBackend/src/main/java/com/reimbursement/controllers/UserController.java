@@ -26,11 +26,13 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<String> registerUser(@RequestBody RegistrationUserDTO registerUserDTO){
+        System.out.println("Attempting to register user: " + registerUserDTO);
         try{
             userService.registerUser(registerUserDTO);
-            return ResponseEntity.status(201).body(registerUserDTO.getUsername() + " was created!");
+            return ResponseEntity.status(201).body("User " + registerUserDTO.getUsername() + " was created successfully!");
         } catch (IllegalArgumentException e){
-            return ResponseEntity.status(400).body(e.getMessage());
+            System.out.println("Registration failed: " + e.getMessage());
+            return ResponseEntity.status(400).body("Registration failed: " + e.getMessage());
         }
     }
 
@@ -42,23 +44,23 @@ public class UserController {
             return ResponseEntity.status(401).body("Login Failed!");
         }
 
-        User u = optionalUser.get();
+        User user = optionalUser.get();
 
-        session.setAttribute("userId", u.getUserId());
-        session.setAttribute("username", u.getUsername());
-        session.setAttribute("role", u.getRole());
+        session.setAttribute("userId", user.getUserId());
+        session.setAttribute("username", user.getUsername());
+        session.setAttribute("role", user.getRole());
 
-        // Return a UserLoginResponseDTO instead of the entire User object
-        return ResponseEntity.ok(new UserLoginResponseDTO(u.getUserId(), u.getUsername()));
+        return ResponseEntity.ok(new UserLoginResponseDTO(user.getUserId(), user.getUsername()));
     }
+
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable int userId){
         try{
             userService.deleteUser(userId);
-            return ResponseEntity.ok("User was deleted!");
+            return ResponseEntity.ok("User " + userId + " was deleted successfully!");
         } catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body("Failed to delete user: " + e.getMessage());
         }
     }
 }

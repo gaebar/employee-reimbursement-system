@@ -6,7 +6,6 @@ import com.reimbursement.models.DTOs.LoginUserDTO;
 import com.reimbursement.models.DTOs.RegistrationUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
@@ -28,12 +27,15 @@ public class UserService {
             throw new IllegalArgumentException("Password cannot be empty");
         }
 
+        // Set default role if not provided
+        String role = registerUserDTO.getRole() != null ? registerUserDTO.getRole() : "employee";
+
         User newUser = new User();
         newUser.setUsername(registerUserDTO.getUsername());
         newUser.setPassword(registerUserDTO.getPassword()); // Consider hashing the password before storing
         newUser.setFirstName(registerUserDTO.getFirstName());
         newUser.setLastName(registerUserDTO.getLastName());
-        newUser.setRole(registerUserDTO.getRole());
+        newUser.setRole(role);
         newUser.setEmail(registerUserDTO.getEmail()); // Set email from RegistrationUserDTO
         return userDAO.save(newUser);
     }

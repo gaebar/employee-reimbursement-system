@@ -5,14 +5,12 @@ public class UserLoginResponseDTO {
     private int userId;
     private String username;
 
-    public UserLoginResponseDTO() {
-    }
-
     public UserLoginResponseDTO(int userId, String username) {
         this.userId = userId;
         this.username = username;
     }
 
+    // Getter and Setter methods
     public int getUserId() {
         return userId;
     }
