@@ -1,7 +1,8 @@
 package com.reimbursement.models;
 
 import jakarta.persistence.*;
-import java.util.Date;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "reimbursement_requests")
@@ -9,7 +10,9 @@ public class ReimbursementRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "reimbursement_id")
+    private int reimbursementId;
+
 
     @Column(nullable = false)
     private double amount;
@@ -21,7 +24,7 @@ public class ReimbursementRequest {
     private String status; // "pending", "approved", "denied"
 
     @Column(nullable = false)
-    private Date dateSubmitted;
+    private LocalDate dateSubmitted;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -30,12 +33,12 @@ public class ReimbursementRequest {
     public ReimbursementRequest() {
     }
 
-    public int getId() {
-        return id;
+    public int getReimbursementId() {
+        return reimbursementId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setReimbursementId(int reimbursementId) {
+        this.reimbursementId = reimbursementId;
     }
 
     public double getAmount() {
@@ -62,11 +65,11 @@ public class ReimbursementRequest {
         this.status = status;
     }
 
-    public Date getDateSubmitted() {
+    public LocalDate getDateSubmitted() {
         return dateSubmitted;
     }
 
-    public void setDateSubmitted(Date dateSubmitted) {
+    public void setDateSubmitted(LocalDate dateSubmitted) {
         this.dateSubmitted = dateSubmitted;
     }
 
@@ -77,4 +80,17 @@ public class ReimbursementRequest {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "ReimbursementRequest{" +
+                "reimbursementId=" + reimbursementId +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
+                ", dateSubmitted=" + dateSubmitted +
+                ", user=" + user +
+                '}';
+    }
+
 }

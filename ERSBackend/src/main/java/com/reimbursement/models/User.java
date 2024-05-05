@@ -17,8 +17,14 @@ public class User {
     @Column(nullable = false)
     private String password; // Optional in some contexts, handle with care
 
-    @Column(nullable = false)
-    private String role; // This field is labeled as 'Optional' in comment, but the column is not nullable. Consider adjusting based on actual requirements.
+    @Column(nullable = false, columnDefinition = "VARCHAR(255) default 'employee'")
+    private String role; // Default role is 'employee'
+
+    @Column(nullable = false, length = 255, columnDefinition="VARCHAR(255) default 'Unknown'")
+    private String firstName;
+
+    @Column(nullable = false, length = 255, columnDefinition="VARCHAR(255) default 'User'")
+    private String lastName;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ReimbursementRequest> reimbursementRequests;
@@ -26,11 +32,11 @@ public class User {
     public User() {
     }
 
-    public int getUserId() { // Renamed from 'getId' to 'getUserId' to match the field name.
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) { // Renamed from 'setId' to 'setUserId' to match the field name.
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -58,11 +64,40 @@ public class User {
         this.role = role;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public List<ReimbursementRequest> getReimbursementRequests() {
         return reimbursementRequests;
     }
 
     public void setReimbursementRequests(List<ReimbursementRequest> reimbursementRequests) {
         this.reimbursementRequests = reimbursementRequests;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", reimbursementRequests=" + reimbursementRequests +
+                '}';
     }
 }
