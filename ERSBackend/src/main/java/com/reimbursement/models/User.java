@@ -26,6 +26,9 @@ public class User {
     @Column(nullable = false, length = 255, columnDefinition="VARCHAR(255) default 'User'")
     private String lastName;
 
+    @Column
+    private String email;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ReimbursementRequest> reimbursementRequests;
 
@@ -80,6 +83,14 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public List<ReimbursementRequest> getReimbursementRequests() {
         return reimbursementRequests;
     }
@@ -97,6 +108,7 @@ public class User {
                 ", role='" + role + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
                 ", reimbursementRequests=" + reimbursementRequests +
                 '}';
     }
