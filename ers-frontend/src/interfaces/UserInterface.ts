@@ -1,8 +1,11 @@
 // User interface to define the shape of the user object
 
 export interface UserInterface {
-    userId?: number;  // Optional because it might not be present when creating a new user
+    userId?: number;
     username: string;
-    password?: string;  // Optional because you might not always pass this around for security reasons
-    role?: string;  // To distinguish between different types of users, e.g., employee, manager
+    password?: string;
+    role?: string;
+    firstName?: string;
+    lastName?: string;
+    confirmPassword?: string;  // Only for use in the Registration form for validation
 }

@@ -3,17 +3,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaUser, FaEnvelope, FaLock } from "react-icons/fa"; // Importa le icone da react-icons
-import "./Auth.css"; // Reusing CSS from the Login component
-
-interface UserInterface {
-    username: string;
-    password: string;
-    email?: string;
-}
+import { FaUser, FaEnvelope, FaLock } from "react-icons/fa"; 
+import "./Auth.css";
 
 export const Register: React.FC = () => {
-    const [user, setUser] = useState<UserInterface>({ username: "", password: "", email: "" });
+    const [user, setUser] = useState({
+        username: "",
+        password: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        confirmPassword: ""
+    });
     const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,13 +23,21 @@ export const Register: React.FC = () => {
     };
 
     const handleRegister = async () => {
+        if (user.password !== user.confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
         try {
-            // Assuming your API endpoint for registering users
-            const response = await axios.post("http://localhost:8080/api/register", user, { withCredentials: true });
+            const { confirmPassword, ...userData } = user; // Exclude confirmPassword when sending to the server
+            const response = await axios.post("http://localhost:8080/api/register", userData);
             alert("Registration successful! You can now log in.");
-            navigate("/login"); // Redirect to login page after successful registration
-        } catch (error) {
-            alert("Registration failed. Please try again.");
+            navigate("/login");
+        } catch (error: any) {
+            if (error.response && error.response.status === 409) {
+                alert("Username already in use. Please choose a different username.");
+            } else {
+                alert("Registration failed. Please try again.");
+            }
         }
     };
 
@@ -39,26 +48,70 @@ export const Register: React.FC = () => {
                 <h3>Join us to manage your reimbursements!</h3>
             </div>
             <div className="input-container">
-                <FaUser className="icon" /> {/* Icon for username */}
-                <input type="text" name="username" placeholder="Username" onChange={handleChange} />
+                <FaUser className="icon" />
+                <input
+                    type="text"
+                    name="firstName"
+                    placeholder="First Name"
+                    aria-label="First Name"
+                    onChange={handleChange}
+                    required />
             </div>
             <div className="input-container">
-                <FaEnvelope className="icon" /> {/* Icon for email */}
-                <input type="email" name="email" placeholder="Email (optional)" onChange={handleChange} />
+                <FaUser className="icon" />
+                <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Last Name"
+                    aria-label="Last Name"
+                    onChange={handleChange}
+                    required />
             </div>
             <div className="input-container">
-                <FaLock className="icon" /> {/* Icon for password */}
-                <input type="password" name="password" placeholder="Password" onChange={handleChange} />
+                <FaUser className="icon" />
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    aria-label="Username"
+                    onChange={handleChange}
+                    required />
             </div>
             <div className="input-container">
-                <FaLock className="icon" /> {/* Icon for confirm password */}
-                <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} />
+                <FaEnvelope className="icon" />
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email (optional)"
+                    aria-label="Email"
+                    onChange={handleChange} />
+            </div>
+            <div className="input-container">
+                <FaLock className="icon" />
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    aria-label="Password"
+                    onChange={handleChange}
+                    required />
+            </div>
+            <div className="input-container">
+                <FaLock className="icon" />
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    aria-label="Confirm Password"
+                    onChange={handleChange}
+                    required />
             </div>
             <button className="login-button" onClick={handleRegister}>Sign Up</button>
-            {/* <button className="login-button" onClick={() => navigate("/login")}>Back to Login</button> */}
             <p className="register-link">
-                    Have an account? <span onClick={() => navigate("/login")}>Log in</span>
-                </p>
+                Have an account? <span onClick={() => navigate("/login")}>Log in</span>
+            </p>
         </div>
     );
 };
+
+export default Register;
