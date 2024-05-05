@@ -1,4 +1,4 @@
-// Register.tsx
+// src/components/Auth/Register.tsx
 
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -30,6 +30,7 @@ export const Register: React.FC = () => {
         try {
             const { confirmPassword, ...userData } = user; // Exclude confirmPassword when sending to the server
             const response = await axios.post("http://localhost:8080/api/register", userData);
+            setUser(response.data);
             alert("Registration successful! You can now log in.");
             navigate("/login");
         } catch (error: any) {

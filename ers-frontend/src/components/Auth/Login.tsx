@@ -1,4 +1,4 @@
-// Login.tsx
+// src/components/Auth/Login.tsx
 
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -23,6 +23,7 @@ export const Login: React.FC<LoginProps> = ({ setToken, setUserRole }) => {
     const login = async () => {
         try {
             const response = await axios.post("http://localhost:8080/api/login", user);
+            setUser(response.data);
             alert(`Welcome, ${response.data.username}!`);
             setToken(response.data.accessToken);
             setUserRole(response.data.role);  // Assume role is part of the response

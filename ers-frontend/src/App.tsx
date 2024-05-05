@@ -6,6 +6,7 @@ import { Login } from './components/Auth/Login';
 import { Register } from './components/Auth/Register';
 import EmployeeDashboard from './components/Dashboard/EmployeeDashboard';
 // import ManagerDashboard from './components/Dashboard/ManagerDashboard'; // Uncomment if ManagerDashboard is implemented
+import { UserProvider } from './components/UserContext'; // Import UserProvider
 import './App.css';
 
 const App: React.FC = () => {
@@ -23,15 +24,17 @@ const App: React.FC = () => {
 
   return (
     <div className='App'>
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login setToken={setToken} setUserRole={setRole} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
-          {/* <Route path="/manager-dashboard" element={<ManagerDashboard />} /> */}
-          <Route path="/" element={renderMainRoute()} />
-        </Routes>
-      </Router>
+      <UserProvider> {/* Wrap components with UserProvider */}
+        <Router>
+          <Routes>
+            <Route path="/login" element={<Login setToken={setToken} setUserRole={setRole} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+            {/* <Route path="/manager-dashboard" element={<ManagerDashboard />} /> */}
+            <Route path="/" element={renderMainRoute()} />
+          </Routes>
+        </Router>
+      </UserProvider>
     </div>
   );
 }
