@@ -1,11 +1,10 @@
-// src/components/Dashboard/ManagerDashboard.js
+// src/components/Dashboard/ManagerDashboard.tsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ManagerDashboard.css';
 import { useGlobalData } from '../../globalData/store';
 
-// Define an interface for reimbursement requests
 interface ReimbursementRequest {
     reimbursementId: number;
     description: string;
@@ -15,56 +14,61 @@ interface ReimbursementRequest {
 
 const ManagerDashboard = () => {
     const [requests, setRequests] = useState<ReimbursementRequest[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState('');
     const { globalData } = useGlobalData();
 
     useEffect(() => {
-        // Fetch all reimbursement requests on component mount
-        const fetchRequests = async () => {
-            try {
-                const response = await axios.get(`${globalData.baseUrl}/api/reimbursements`);
+        console.log("Fetching data with base URL:", globalData.baseUrl);
+        setIsLoading(true);
+        setError('');
+        axios.get(`${globalData.baseUrl}/api/reimbursements`)
+            .then(response => {
+                console.log("Data fetched successfully:", response.data);
                 setRequests(response.data);
-            } catch (error) {
+                setIsLoading(false);
+            })
+            .catch(error => {
                 console.error('Failed to fetch reimbursements', error);
-            }
-        };
+                setError('Failed to load reimbursements.');
+                setIsLoading(false);
+            });
+    }, [globalData.baseUrl]); // Ensure dependency is correct
 
-        fetchRequests();
-    }, []);
-
-    // Handles the approval of a reimbursement request
     const handleApprove = async (reimbursementId: number) => {
         try {
             await axios.post(`${globalData.baseUrl}/api/reimbursements/approve/${reimbursementId}`);
-            // Update local list of requests or re-fetch the data
             setRequests(requests.map(req => req.reimbursementId === reimbursementId ? { ...req, status: 'Approved' } : req));
         } catch (error) {
             console.error('Failed to approve reimbursement', error);
+            setError(`Failed to approve reimbursement ID ${reimbursementId}`);
         }
     };
 
-    // Handles the denial of a reimbursement request
     const handleDeny = async (reimbursementId: number) => {
         try {
             await axios.post(`${globalData.baseUrl}/api/reimbursements/deny/${reimbursementId}`);
-            // Update local list of requests or re-fetch the data
             setRequests(requests.map(req => req.reimbursementId === reimbursementId ? { ...req, status: 'Denied' } : req));
         } catch (error) {
             console.error('Failed to deny reimbursement', error);
+            setError(`Failed to deny reimbursement ID ${reimbursementId}`);
         }
     };
 
     return (
         <div className="manager-dashboard">
             <h1>Manager Dashboard</h1>
-            <ul>
-                {requests.map(request => (
-                    <li key={request.reimbursementId}>
-                        {request.description} - ${request.amount} - {request.status}
-                        <button onClick={() => handleApprove(request.reimbursementId)}>Approve</button>
-                        <button onClick={() => handleDeny(request.reimbursementId)}>Deny</button>
-                    </li>
-                ))}
-            </ul>
+            {isLoading ? <p>Loading...</p> : error ? <p>{error}</p> : (
+                <ul>
+                    {requests.map(request => (
+                        <li key={request.reimbursementId}>
+                            {request.description} - ${request.amount} - {request.status}
+                            <button onClick={() => handleApprove(request.reimbursementId)}>Approve</button>
+                            <button onClick={() => handleDeny(request.reimbursementId)}>Deny</button>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 }

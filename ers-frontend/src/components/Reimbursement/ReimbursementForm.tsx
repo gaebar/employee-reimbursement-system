@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FaMoneyBillAlt, FaAlignLeft } from 'react-icons/fa';
 import './ReimbursementForm.css';
+import { useGlobalData } from '../../globalData/store';
 
 export const ReimbursementForm = () => {
     const [formData, setFormData] = useState({
         amount: '',
         description: ''
     });
+    const { globalData } = useGlobalData();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -22,7 +24,7 @@ export const ReimbursementForm = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8080/api/reimbursements', formData);
+            await axios.post(`${globalData.baseUrl}/api/reimbursements`, formData);
             alert('Reimbursement submitted successfully!');
             setFormData({ amount: '', description: '' }); // Reset form fields
         } catch (error) {

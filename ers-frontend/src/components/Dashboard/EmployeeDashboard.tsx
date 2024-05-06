@@ -11,6 +11,7 @@ import { useGlobalData } from '../../globalData/store';
 const EmployeeDashboard = () => {
     const [reimbursements, setReimbursements] = useState<ReimbursementInterface[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState('');
     const { globalData } = useGlobalData();
 
     useEffect(() => {
@@ -24,19 +25,20 @@ const EmployeeDashboard = () => {
                 setIsLoading(false);
             } catch (error) {
                 console.error('Failed to fetch data', error);
+                setError('Failed to fetch reimbursement requests.');
                 setIsLoading(false);
             }
         };
 
         fetchData();
-    }, [globalData.user?.userId]); // Depend on global user ID
+    }, [globalData.user?.userId, globalData.baseUrl]); 
 
     return (
         <div className="employee-dashboard">
             <h1>Employee Dashboard</h1>
             <ReimbursementForm />
             <h2>Your Reimbursement Requests</h2>
-            {isLoading ? <p>Loading...</p> : <ReimbursementList reimbursements={reimbursements} />}
+            {isLoading ? <p>Loading...</p> : error ? <p>{error}</p> : <ReimbursementList reimbursements={reimbursements} />}
         </div>
     );
 };
