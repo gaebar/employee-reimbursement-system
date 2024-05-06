@@ -16,13 +16,11 @@ The ERS application consists of two main components:
 - **Account Creation**: Employees can create an account to access the system.
 - **Reimbursement Submission**: Employees can submit reimbursement requests.
 - **View Reimbursements**: Employees can view their own reimbursement tickets and pending reimbursement tickets.
-- **Additional Functionality**: Customize additional functionalities as needed.
 
 ### Manager Features
 - **View Reimbursements**: Managers can view all reimbursements.
 - **Resolve Reimbursements**: Managers can approve or deny reimbursement requests.
 - **User Management**: Managers can view all users and delete users (with related reimbursements).
-- **Additional Functionality**: Customize additional functionalities as needed.
 
 ### Validation
 - **User Authentication**: Only logged-in users can access functionalities.
