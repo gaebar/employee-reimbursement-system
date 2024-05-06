@@ -23,11 +23,18 @@ The ERS application consists of two main components:
 - **User Management**: Managers can view all users and delete users (with related reimbursements).
 
 ### Validation
-- **User Authentication**: Only logged-in users can access functionalities.
+- **User Authentication**: The system ensures that only logged-in users can access functionalities. Using Spring Security, the backend manages sessions and authentication states securely. Each request is verified to ensure that it comes from an authenticated session before any user-specific actions are processed. In case of session expiration or non-authentication, the system redirects users to the login page.
 
-### Optional Features
-- **Service Layer Logging**: Logging of service layer with logback.
-- **Service Layer Testing**: Test suites for the service layer with JUnit.
+### Integration of Frontend and Backend
+- **API Communication**: The frontend uses Axios to make HTTP requests to the backend. These requests include credentials where necessary, and the backend uses session cookies to maintain user state across requests.
+- **Secure Data Flow**: The communication between the frontend and the backend is secured through HTTPS, ensuring that all data transferred remains encrypted and secure from interceptors.
+- **Frontend Authentication Checks**: The frontend has mechanisms to check whether the user is logged in before rendering protected routes. It interacts with the backend to fetch authentication status and user details, which are then stored in the global context or local storage for quick access and to manage user sessions effectively.
+- **Error Handling and User Feedback**: Both frontend and backend include robust error handling mechanisms to deal with authentication errors, such as unauthorized access attempts or session timeouts. Users are promptly informed with appropriate messages guiding them to re-authenticate or correct their actions.
+
+## Technology Stack
+- **Frontend**: React, Axios for API calls
+- **Backend**: Spring Boot with Spring Security for secure API endpoints, Spring Data JPA for database interactions
+- **Database**: PostgreSQL
 
 ## Database Architecture
 
