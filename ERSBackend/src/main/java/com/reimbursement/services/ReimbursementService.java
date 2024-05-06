@@ -27,7 +27,7 @@ public class ReimbursementService {
             User user = new User();
             user.setUserId(userId);  // No need to parse, userId is already an Integer
             request.setDateSubmitted(LocalDate.now());
-            request.setStatus(ReimbursementRequest.ReinbursementStatus.PENDING);
+            request.setStatus(ReimbursementRequest.ReimbursementStatus.PENDING);
             request.setUser(user);
             return reimbursementDAO.save(request);
         } catch (Exception e) {
@@ -40,7 +40,7 @@ public class ReimbursementService {
         Optional<ReimbursementRequest> found = reimbursementDAO.findById(id);
         if (found.isPresent()) {
             ReimbursementRequest request = found.get();
-            request.setStatus(ReimbursementRequest.ReinbursementStatus.APPROVED);
+            request.setStatus(ReimbursementRequest.ReimbursementStatus.APPROVED);
             return reimbursementDAO.save(request);
         } else {
             throw new RuntimeException("Reimbursement request not found");
@@ -51,7 +51,7 @@ public class ReimbursementService {
         Optional<ReimbursementRequest> found = reimbursementDAO.findById(id);
         if (found.isPresent()) {
             ReimbursementRequest request = found.get();
-            request.setStatus(ReimbursementRequest.ReinbursementStatus.DENIED);
+            request.setStatus(ReimbursementRequest.ReimbursementStatus.DENIED);
             return reimbursementDAO.save(request);
         } else {
             throw new RuntimeException("Reimbursement request not found");
