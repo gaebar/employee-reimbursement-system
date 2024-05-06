@@ -11,6 +11,7 @@ interface ReimbursementRequest {
     description: string;
     amount: number;
     status: string;
+    userId: number;
 }
 
 const ManagerDashboard = () => {
@@ -63,9 +64,9 @@ const ManagerDashboard = () => {
                 <ul>
                     {requests.map(request => (
                         <li key={request.reimbursementId}>
-                            {request.description} - ${request.amount} - {request.status}
+                            <span>{request.description} - ${request.amount} - {request.status} </span>
                             <button onClick={() => handleApprove(request.reimbursementId)}>Approve</button>
-                            <button onClick={() => handleDeny(request.reimbursementId)}>Deny</button>
+                            <button className = "red" onClick={() => handleDeny(request.reimbursementId)}>Deny</button>
                         </li>
                     ))}
                 </ul>

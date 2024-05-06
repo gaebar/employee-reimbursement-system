@@ -40,9 +40,25 @@
     border-radius: 15px;
     cursor: pointer;
     font-size: 0.9rem; /* Slightly smaller font size for buttons */
+    width: 20%;
 }
+
+.manager-dashboard button.red {
+    background-color: #8a2525; /* Consistent green button */
+}
+
 
 .manager-dashboard button:hover {
     background-color: #278440; /* Darker green on hover */
     box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Slight shadow for depth */
+}
+
+.manager-dashboard button.red:hover {
+    background-color: #73291b; /* Darker green on hover */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Slight shadow for depth */
+}
+
+.manager-dashboard li span {
+    width: 58%;
+    display: block;
 }

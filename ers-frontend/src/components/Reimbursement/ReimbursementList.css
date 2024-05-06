@@ -29,6 +29,8 @@
     border-radius: 15px; /* Bordi arrotondati per coerenza */
 }
 
+
+
 .reimbursement-list li:last-child {
     border-bottom: none;
 }
