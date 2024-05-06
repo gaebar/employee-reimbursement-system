@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaUser, FaLock } from "react-icons/fa"; 
 import "./Auth.css";
+import { useGlobalData } from '../../globalData/store';
 
 interface LoginProps {
     setToken: (token: string) => void;
@@ -14,6 +15,7 @@ interface LoginProps {
 export const Login: React.FC<LoginProps> = ({ setToken, setUserRole }) => {
     const [user, setUser] = useState({ username: "", password: "" });
     const navigate = useNavigate();
+    const { setGlobalData } = useGlobalData();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -23,10 +25,17 @@ export const Login: React.FC<LoginProps> = ({ setToken, setUserRole }) => {
     const login = async () => {
         try {
             const response = await axios.post("http://localhost:8080/users/login", user);
-            const { userId, username, role } = response.data; // Assicurati che il backend invii 'role'
             setToken(response.data.accessToken);
-            setUserRole(role); // Salva il ruolo nello stato o in un context/store se usi Redux o Context API
-            navigate(role === "manager" ? "/manager-dashboard" : "/employee-dashboard");
+            setUserRole(response.data.role);
+            setGlobalData(prev => ({
+                ...prev,
+                user: {
+                    userId: response.data.userId,
+                    username: response.data.username,
+                    role: response.data.role
+                }
+            }));
+            navigate(response.data.role === "manager" ? "/manager-dashboard" : "/employee-dashboard");
         } catch (error) {
             alert("Login Failed!");
         }
@@ -61,3 +70,5 @@ export const Login: React.FC<LoginProps> = ({ setToken, setUserRole }) => {
         </div>
     );
 };
+
+export default Login;

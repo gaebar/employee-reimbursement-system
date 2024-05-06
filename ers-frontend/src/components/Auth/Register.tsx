@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaRegUserCircle, FaRegIdBadge, FaUser, FaEnvelope, FaLock, FaBriefcase } from "react-icons/fa"; // Importa l'icona per il ruolo
+import { FaRegUserCircle, FaRegIdBadge, FaUser, FaEnvelope, FaLock, FaBriefcase } from "react-icons/fa";
 import "./Auth.css";
 
 export const Register: React.FC = () => {
@@ -14,7 +14,7 @@ export const Register: React.FC = () => {
         firstName: "",
         lastName: "",
         confirmPassword: "",
-        role: "employee" // Default role set as "employee"
+        role: "employee"
     });
     const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ export const Register: React.FC = () => {
             return;
         }
         try {
-            const { confirmPassword, ...userData } = user; // Exclude confirmPassword when sending to the server
+            const { confirmPassword, ...userData } = user;
             await axios.post("http://localhost:8080/users", userData);
             alert("Registration successful! You can now log in.");
             navigate("/login");
@@ -38,7 +38,6 @@ export const Register: React.FC = () => {
             alert("Registration failed. Please try again.");
         }
     };
-    
 
     return (
         <div className="login">

@@ -1,6 +1,4 @@
-// src/globalData/store.ts
-
-// src/globalData/store.ts
+// src/globalData/store.tsx
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
@@ -20,13 +18,15 @@ interface GlobalDataContextType {
     setGlobalData: React.Dispatch<React.SetStateAction<GlobalData>>;
 }
 
+const defaultState: GlobalData = {
+    user: null,
+    baseUrl: "http://localhost:8080"
+};
+
 const GlobalDataContext = createContext<GlobalDataContextType | undefined>(undefined);
 
-export const GlobalDataProvider: React.FC<{children: ReactNode}> = ({ children }) => {
-    const [globalData, setGlobalData] = useState<GlobalData>({
-        user: null,
-        baseUrl: "http://localhost:8080"
-    });
+export const GlobalDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const [globalData, setGlobalData] = useState<GlobalData>(defaultState);
 
     return (
         <GlobalDataContext.Provider value={{ globalData, setGlobalData }}>

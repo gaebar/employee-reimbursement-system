@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ManagerDashboard.css';
+import { useGlobalData } from '../../globalData/store';
 
 // Define an interface for reimbursement requests
 interface ReimbursementRequest {
@@ -14,12 +15,13 @@ interface ReimbursementRequest {
 
 const ManagerDashboard = () => {
     const [requests, setRequests] = useState<ReimbursementRequest[]>([]);
+    const { globalData } = useGlobalData();
 
     useEffect(() => {
         // Fetch all reimbursement requests on component mount
         const fetchRequests = async () => {
             try {
-                const response = await axios.get<ReimbursementRequest[]>('http://localhost:8080/api/reimbursements');  // Adjust the endpoint as necessary
+                const response = await axios.get(`${globalData.baseUrl}/api/reimbursements`);
                 setRequests(response.data);
             } catch (error) {
                 console.error('Failed to fetch reimbursements', error);
@@ -32,7 +34,7 @@ const ManagerDashboard = () => {
     // Handles the approval of a reimbursement request
     const handleApprove = async (reimbursementId: number) => {
         try {
-            await axios.post(`http://localhost:8080/api/reimbursements/approve/${reimbursementId}`);
+            await axios.post(`${globalData.baseUrl}/api/reimbursements/approve/${reimbursementId}`);
             // Update local list of requests or re-fetch the data
             setRequests(requests.map(req => req.reimbursementId === reimbursementId ? { ...req, status: 'Approved' } : req));
         } catch (error) {
@@ -43,7 +45,7 @@ const ManagerDashboard = () => {
     // Handles the denial of a reimbursement request
     const handleDeny = async (reimbursementId: number) => {
         try {
-            await axios.post(`http://localhost:8080/api/reimbursements/deny/${reimbursementId}`);
+            await axios.post(`${globalData.baseUrl}/api/reimbursements/deny/${reimbursementId}`);
             // Update local list of requests or re-fetch the data
             setRequests(requests.map(req => req.reimbursementId === reimbursementId ? { ...req, status: 'Denied' } : req));
         } catch (error) {

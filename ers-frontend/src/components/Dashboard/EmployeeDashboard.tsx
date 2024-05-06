@@ -1,23 +1,26 @@
-// EmployeeDashboard.tsx
+// src/components/Dashboard/EmployeeDashboard.tsx
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ReimbursementInterface } from '../../interfaces/ReimbursementInterface';
-import { ReimbursementForm } from '../Reimbursement/ReimbursementForm'; 
+import { ReimbursementForm } from '../Reimbursement/ReimbursementForm';
 import { ReimbursementList } from '../Reimbursement/ReimbursementList';
 import './EmployeeDashboard.css';
+import { useGlobalData } from '../../globalData/store';
 
 const EmployeeDashboard = () => {
     const [reimbursements, setReimbursements] = useState<ReimbursementInterface[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { globalData } = useGlobalData();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Assuming 'userId' is available in some context or derived from auth token
-                const userId = 1; // Replace with actual dynamic user ID as necessary
-                const response = await axios.get(`http://localhost:8080/api/reimbursements/user/${userId}`);
-                setReimbursements(response.data);
+                const userId = globalData.user?.userId; // Using global user data
+                if (userId) {
+                    const response = await axios.get(`${globalData.baseUrl}/api/reimbursements/user/${userId}`);
+                    setReimbursements(response.data);
+                }
                 setIsLoading(false);
             } catch (error) {
                 console.error('Failed to fetch data', error);
@@ -26,7 +29,7 @@ const EmployeeDashboard = () => {
         };
 
         fetchData();
-    }, []);
+    }, [globalData.user?.userId]); // Depend on global user ID
 
     return (
         <div className="employee-dashboard">
