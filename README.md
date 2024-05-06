@@ -35,6 +35,8 @@ The ERS application consists of two main components:
 
 The database architecture includes tables for users, reimbursements, and other necessary entities. Customize table columns and constraints as needed, ensuring proper error handling.
 
+![ER Diagram](er-diagram.png)
+
 ## Requirements
 
 For detailed project requirements, please refer to [Project Requirements](requirements.md).
