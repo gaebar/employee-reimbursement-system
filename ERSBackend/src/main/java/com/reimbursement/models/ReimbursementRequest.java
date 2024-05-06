@@ -21,12 +21,13 @@ public class ReimbursementRequest {
     private String description;
 
     @Column(nullable = false)
-    private String status; // "pending", "approved", "denied"
+    @Enumerated(EnumType.STRING)
+    private ReinbursementStatus status; // "pending", "approved", "denied"
 
     @Column(nullable = false)
     private LocalDate dateSubmitted;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
     private User user;
 
@@ -57,11 +58,11 @@ public class ReimbursementRequest {
         this.description = description;
     }
 
-    public String getStatus() {
+    public ReinbursementStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ReinbursementStatus status) {
         this.status = status;
     }
 
@@ -93,4 +94,7 @@ public class ReimbursementRequest {
                 '}';
     }
 
+    public enum ReinbursementStatus {
+        PENDING, APPROVED, DENIED
+    }
 }

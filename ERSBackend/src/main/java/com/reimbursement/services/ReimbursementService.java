@@ -2,11 +2,16 @@ package com.reimbursement.services;
 
 import com.reimbursement.DAOs.ReimbursementDAO;
 import com.reimbursement.models.ReimbursementRequest;
+import com.reimbursement.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import static java.lang.System.currentTimeMillis;
 
 @Service
 public class ReimbursementService {
@@ -19,8 +24,13 @@ public class ReimbursementService {
     }
 
     @Transactional
-    public ReimbursementRequest createReimbursement(ReimbursementRequest request) {
+    public ReimbursementRequest createReimbursement(ReimbursementRequest request, String userId) {
         try {
+            User user = new User();
+            user.setUserId(Integer.parseInt(userId));
+            request.setDateSubmitted(LocalDate.now());
+            request.setStatus(ReimbursementRequest.ReinbursementStatus.PENDING);
+            request.setUser(user);
             return reimbursementDAO.save(request);
         } catch (Exception e) {
             System.out.println("Error creating reimbursement: " + e.getMessage());
@@ -32,7 +42,7 @@ public class ReimbursementService {
         Optional<ReimbursementRequest> found = reimbursementDAO.findById(id);
         if (found.isPresent()) {
             ReimbursementRequest request = found.get();
-            request.setStatus("Approved");
+            request.setStatus(ReimbursementRequest.ReinbursementStatus.APPROVED);
             return reimbursementDAO.save(request);
         } else {
             throw new RuntimeException("Reimbursement request not found");
@@ -43,7 +53,7 @@ public class ReimbursementService {
         Optional<ReimbursementRequest> found = reimbursementDAO.findById(id);
         if (found.isPresent()) {
             ReimbursementRequest request = found.get();
-            request.setStatus("Denied");
+            request.setStatus(ReimbursementRequest.ReinbursementStatus.DENIED);
             return reimbursementDAO.save(request);
         } else {
             throw new RuntimeException("Reimbursement request not found");

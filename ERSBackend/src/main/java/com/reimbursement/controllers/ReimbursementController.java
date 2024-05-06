@@ -2,6 +2,7 @@ package com.reimbursement.controllers;
 
 import com.reimbursement.models.ReimbursementRequest;
 import com.reimbursement.services.ReimbursementService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/reimbursements")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class ReimbursementController {
 
     @Autowired
@@ -33,9 +35,10 @@ public class ReimbursementController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createReimbursement(@RequestBody ReimbursementRequest request) {
+    public ResponseEntity<?> createReimbursement(@RequestBody ReimbursementRequest request, HttpSession session){
         try {
-            return ResponseEntity.ok(reimbursementService.createReimbursement(request));
+            String usreId = (String) session.getAttribute("userId");
+            return ResponseEntity.ok(reimbursementService.createReimbursement(request, usreId));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create reimbursement");
         }
