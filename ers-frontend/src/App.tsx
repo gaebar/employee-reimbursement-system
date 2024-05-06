@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Login } from './components/Auth/Login';
 import { Register } from './components/Auth/Register';
 import EmployeeDashboard from './components/Dashboard/EmployeeDashboard';
-import ManagerDashboard from './components/Dashboard/ManagerDashboard'; // Ensure this is uncommented only if the component is ready
-import { UserProvider } from './components/UserContext'; // Import UserProvider
+import ManagerDashboard from './components/Dashboard/ManagerDashboard';
+import { UserProvider } from './components/UserContext'; // This can eventually be replaced or integrated with GlobalData
 import './App.css';
 
 const App: React.FC = () => {
@@ -24,7 +24,7 @@ const App: React.FC = () => {
 
   return (
     <div className='App'>
-      <UserProvider> {/* Wrap components with UserProvider */}
+      <UserProvider> {/* Continue using UserProvider for now */}
         <Router>
           <Routes>
             <Route path="/login" element={<Login setToken={setToken} setUserRole={setRole} />} />
