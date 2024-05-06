@@ -1,12 +1,14 @@
-// ReimbursementForm.tsx
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FaMoneyBillAlt, FaAlignLeft } from 'react-icons/fa';
 import './ReimbursementForm.css';
 import { useGlobalData } from '../../globalData/store';
 
-export const ReimbursementForm = () => {
+interface ReimbursementFormProps {
+    onReimbursementSubmit: () => void;
+}
+
+export const ReimbursementForm: React.FC<ReimbursementFormProps> = ({ onReimbursementSubmit }) => {
     const [formData, setFormData] = useState({
         amount: '',
         description: ''
@@ -27,6 +29,7 @@ export const ReimbursementForm = () => {
             await axios.post(`${globalData.baseUrl}/api/reimbursements`, formData);
             alert('Reimbursement submitted successfully!');
             setFormData({ amount: '', description: '' }); // Reset form fields
+            onReimbursementSubmit(); // Call the passed callback to refresh the reimbursements list
         } catch (error) {
             alert('Failed to submit reimbursement');
             console.error(error);

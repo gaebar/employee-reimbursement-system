@@ -1,5 +1,6 @@
 package com.reimbursement.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -27,8 +28,9 @@ public class ReimbursementRequest {
     @Column(nullable = false)
     private LocalDate dateSubmitted;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     public ReimbursementRequest() {

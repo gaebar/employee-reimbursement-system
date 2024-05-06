@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ManagerDashboard.css';
 import { useGlobalData } from '../../globalData/store';
+import { Link } from 'react-router-dom';
 
 interface ReimbursementRequest {
     reimbursementId: number;
@@ -69,6 +70,7 @@ const ManagerDashboard = () => {
                     ))}
                 </ul>
             )}
+            <p className="register-link"><Link to="/logout">Logout</Link></p>
         </div>
     );
 }

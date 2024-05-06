@@ -1,5 +1,3 @@
-// src/components/Reimbursement/ReimbursementList.tsx
-
 import React from 'react';
 import { ReimbursementInterface } from '../../interfaces/ReimbursementInterface';
 import './ReimbursementList.css';

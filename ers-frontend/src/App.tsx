@@ -30,7 +30,7 @@ const App: React.FC = () => {
             <Route path="/login" element={<Login setUserRole={setRole} />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+            <Route path="/employee-dashboard" element={<EmployeeDashboard setUserRole={setRole}/>} />
             <Route path="/manager-dashboard" element={<ManagerDashboard />} />
             <Route path="/" element={renderMainRoute()} />
           </Routes>
