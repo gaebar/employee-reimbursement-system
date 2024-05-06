@@ -11,8 +11,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static java.lang.System.currentTimeMillis;
-
 @Service
 public class ReimbursementService {
 
@@ -24,17 +22,17 @@ public class ReimbursementService {
     }
 
     @Transactional
-    public ReimbursementRequest createReimbursement(ReimbursementRequest request, String userId) {
+    public ReimbursementRequest createReimbursement(ReimbursementRequest request, Integer userId) {
         try {
             User user = new User();
-            user.setUserId(Integer.parseInt(userId));
+            user.setUserId(userId);  // No need to parse, userId is already an Integer
             request.setDateSubmitted(LocalDate.now());
             request.setStatus(ReimbursementRequest.ReinbursementStatus.PENDING);
             request.setUser(user);
             return reimbursementDAO.save(request);
         } catch (Exception e) {
             System.out.println("Error creating reimbursement: " + e.getMessage());
-            throw e; // rethrow the exception
+            throw e; // Rethrow the exception
         }
     }
 

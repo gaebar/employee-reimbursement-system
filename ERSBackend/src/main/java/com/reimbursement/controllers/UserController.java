@@ -17,17 +17,13 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class UserController {
 
-    private UserService userService;
-
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
 
     @PostMapping
     public ResponseEntity<String> registerUser(@RequestBody RegistrationUserDTO registerUserDTO){
-        System.out.println("Attempting to register user: " + registerUserDTO);
-        try{
+        System.out.println("Attempting to register user: " + registerUserDTO.getUsername());
+        try {
             userService.registerUser(registerUserDTO);
             return ResponseEntity.status(201).body("User " + registerUserDTO.getUsername() + " was created successfully!");
         } catch (IllegalArgumentException e){
@@ -41,28 +37,29 @@ public class UserController {
         System.out.println("Attempting to login with username: " + loginUserDTO.getUsername());
         Optional<User> optionalUser = userService.loginUser(loginUserDTO);
 
-        if(optionalUser.isEmpty()){
+        if (optionalUser.isEmpty()) {
             System.out.println("Login failed: No user found with provided credentials");
             return ResponseEntity.status(401).body("Login Failed!");
         }
 
-        User u = optionalUser.get();
-        System.out.println("Login successful for user: " + u.getUsername());
+        User user = optionalUser.get();
+        System.out.println("Login successful for user: " + user.getUsername());
 
-        session.setAttribute("userId", u.getUserId());
-        session.setAttribute("username", u.getUsername());
-        session.setAttribute("role", u.getRole());
+        session.setAttribute("userId", user.getUserId());
+        session.setAttribute("username", user.getUsername());
+        session.setAttribute("role", user.getRole());
 
-        return ResponseEntity.ok(new UserLoginResponseDTO(u.getUserId(), u.getUsername(), u.getRole()));
+        System.out.println("Session attributes set: userId=" + user.getUserId() + ", username=" + user.getUsername() + ", role=" + user.getRole());
+
+        return ResponseEntity.ok(new UserLoginResponseDTO(user.getUserId(), user.getUsername(), user.getRole()));
     }
 
-
     @DeleteMapping("/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable int userId){
-        try{
+    public ResponseEntity<String> deleteUser(@PathVariable int userId) {
+        try {
             userService.deleteUser(userId);
             return ResponseEntity.ok("User " + userId + " was deleted successfully!");
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to delete user: " + e.getMessage());
         }
     }

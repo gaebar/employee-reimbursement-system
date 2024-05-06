@@ -37,10 +37,13 @@ public class ReimbursementController {
     @PostMapping
     public ResponseEntity<?> createReimbursement(@RequestBody ReimbursementRequest request, HttpSession session){
         try {
-            String usreId = (String) session.getAttribute("userId");
-            return ResponseEntity.ok(reimbursementService.createReimbursement(request, usreId));
+            Integer userId = (Integer) session.getAttribute("userId");
+            if (userId == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session expired or user not logged in.");
+            }
+            return ResponseEntity.ok(reimbursementService.createReimbursement(request, userId));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create reimbursement");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create reimbursement: " + e.getMessage());
         }
     }
 
