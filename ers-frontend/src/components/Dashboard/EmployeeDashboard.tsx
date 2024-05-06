@@ -7,6 +7,7 @@ import { ReimbursementForm } from '../Reimbursement/ReimbursementForm';
 import { ReimbursementList } from '../Reimbursement/ReimbursementList';
 import './EmployeeDashboard.css';
 import { useGlobalData } from '../../globalData/store';
+import { Link } from 'react-router-dom';
 
 const EmployeeDashboard = () => {
     const [reimbursements, setReimbursements] = useState<ReimbursementInterface[]>([]);
@@ -31,7 +32,7 @@ const EmployeeDashboard = () => {
         };
 
         fetchData();
-    }, [globalData.user?.userId, globalData.baseUrl]); 
+    }, [globalData.user?.userId, globalData.baseUrl]);
 
     return (
         <div className="employee-dashboard">
@@ -39,6 +40,7 @@ const EmployeeDashboard = () => {
             <ReimbursementForm />
             <h2>Your Reimbursement Requests</h2>
             {isLoading ? <p>Loading...</p> : error ? <p>{error}</p> : <ReimbursementList reimbursements={reimbursements} />}
+            <p className="register-link"><Link to="/logout">Logout</Link></p>
         </div>
     );
 };
