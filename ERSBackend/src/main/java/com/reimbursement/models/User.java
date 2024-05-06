@@ -1,5 +1,6 @@
 package com.reimbursement.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class User {
     private String username;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password; // Optional in some contexts, handle with care
 
     @Column(nullable = false, columnDefinition = "VARCHAR(255) default 'employee'")
@@ -30,6 +32,7 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<ReimbursementRequest> reimbursementRequests;
 
     public User() {

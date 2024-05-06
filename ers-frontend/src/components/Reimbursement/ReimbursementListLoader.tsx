@@ -11,9 +11,8 @@ const ReimbursementListLoader = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
+            try { 
                 const response = await axios.get('http://localhost:8080/api/reimbursements');
-                debugger
                 setReimbursements(response.data);
                 setIsLoading(false);
             } catch (error) {

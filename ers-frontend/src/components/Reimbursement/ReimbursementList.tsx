@@ -9,7 +9,6 @@ interface ReimbursementListProps {
 export const ReimbursementList: React.FC<ReimbursementListProps> = ({ reimbursements }) => {
     return (
         <div className="reimbursement-list">
-            <h2>Reimbursement Requests</h2>
             {reimbursements.length > 0 ? (
                 <ul>
                     {reimbursements.map((item, index) => (
